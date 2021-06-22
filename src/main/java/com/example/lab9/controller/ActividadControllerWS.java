@@ -26,11 +26,11 @@ public class ActividadControllerWS {
 
     @PostMapping(value = "/actividad", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity crearUusario(@RequestBody Actividad actividad,
-                                       @RequestParam(value = "fetchId") boolean fetchCorreo) {
+                                       @RequestParam(value = "fetchId") boolean fetchId) {
         HashMap<String, Object> responseMap = new HashMap<>();
         actividadRepository.save(actividad);
         responseMap.put("estado", "creado");
-        if (fetchCorreo) {
+        if (fetchId) {
             responseMap.put("id", actividad.getIdactividad());
         }
         return new ResponseEntity(responseMap, HttpStatus.OK);

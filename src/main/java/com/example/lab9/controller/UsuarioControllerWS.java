@@ -1,5 +1,6 @@
 package com.example.lab9.controller;
 
+import com.example.lab9.entity.Actividad;
 import com.example.lab9.entity.Usuario;
 import com.example.lab9.repository.UsuarioReposity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class UsuarioControllerWS {
 
     @PostMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity crearUusario(@RequestBody Usuario usuario,
-                                       @RequestParam(value = "fetchCorreo", required = false) boolean fetchCorreo){
+                                       @RequestParam(value = "fetchCorreo") boolean fetchCorreo){
         HashMap<String, String> responseMap = new HashMap<>();
         usuarioReposity.save(usuario);
         responseMap.put("estado", "creado");
@@ -38,6 +39,7 @@ public class UsuarioControllerWS {
         }
         return new ResponseEntity(responseMap, HttpStatus.OK);
     }
+
 
     @PutMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity actualizarUsuario(@RequestBody Usuario usuario){
