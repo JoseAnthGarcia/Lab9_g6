@@ -1,6 +1,7 @@
 package com.example.lab9.controller;
 
 import com.example.lab9.entity.Area;
+import com.example.lab9.entity.AreaDto;
 import com.example.lab9.entity.Usuario;
 import com.example.lab9.repository.AreaRepository;
 import com.example.lab9.repository.UsuarioReposity;
@@ -80,9 +81,14 @@ public class AreaController {
             int id = Integer.parseInt(idStr);
             Optional<Area> opt = areaRepository.findById(id);
             if (opt.isPresent()) {
-                responseMap.put("estado", "ok");
+                Area area = opt.get();
                 List<Usuario> listaUsuarios = usuarioReposity.usuariosPorArea(id);
-                responseMap.put("listaUsuarios", listaUsuarios);
+                AreaDto areaDto = new AreaDto();
+                areaDto.setIdarea(area.getIdarea());
+                areaDto.setNombrearea(area.getNombrearea());
+                areaDto.setListaUsuarios(listaUsuarios);
+                responseMap.put("area", areaDto);
+                responseMap.put("estado", "ok");
                 return new ResponseEntity(responseMap, HttpStatus.OK);
             } else {
                 responseMap.put("estado", "error");
@@ -119,8 +125,8 @@ public class AreaController {
         }
     }
 
-    @DeleteMapping(value = "/area/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity borrarArea(@PathVariable("id") String idStr) {
+    @DeleteMapping(value = "/area", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity borrarArea(@RequestParam("id") String idStr) {
 
         HashMap<String, Object> responseMap = new HashMap<>();
 

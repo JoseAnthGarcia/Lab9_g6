@@ -1,6 +1,7 @@
 package com.example.lab9.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "areas")
@@ -10,7 +11,7 @@ public class Area {
     @Column(name="idarea")
     private int idarea;
     @Column(name="nombreArea")
-    private String nombreArea;
+    private String nombrearea;
 
     public int getIdarea() {
         return idarea;
@@ -20,11 +21,12 @@ public class Area {
         this.idarea = idarea;
     }
 
-    public String getNombreArea() {
-        return nombreArea;
+    public String getNombrearea() {
+        return nombrearea;
     }
 
-    public void setNombreArea(String nombreArea) {
-        this.nombreArea = nombreArea;
+    public void setNombrearea(String nombreArea) {
+        this.nombrearea = nombreArea;
     }
+
 }
