@@ -2,7 +2,8 @@ package com.example.lab9.entity;
 
 import javax.persistence.*;
 
-
+@Entity
+@Table(name = "areas")
 public class Area {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
