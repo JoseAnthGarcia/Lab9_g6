@@ -38,7 +38,43 @@ public class UsuarioControllerWS {
         }
         return new ResponseEntity(responseMap, HttpStatus.OK);
     }
-    
+
+    @PutMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity actualizarUsuario(@RequestBody Usuario usuario){
+
+        Optional<Usuario> usuarioOpt = usuarioReposity.findById(usuario.getCorreo());
+        HashMap<String, String> responseMap = new HashMap<>();
+        if(usuarioOpt.isPresent()){
+            usuarioReposity.save(usuario);
+            responseMap.put("estado", "actualizado");
+            return new ResponseEntity(responseMap, HttpStatus.OK);
+        }else{
+            responseMap.put("estado", "El correo del usuario a actualizar no existe");
+            responseMap.put("msg", "error");
+            return new ResponseEntity(responseMap, HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity borrarUsuario(@RequestParam(value = "correo", required = false) String correo){
+        HashMap<String, String> responseMap = new HashMap<>();
+        if(correo!=null){
+            Optional<Usuario> usuarioOpt = usuarioReposity.findById(correo);
+            if(usuarioOpt.isPresent()){
+                usuarioReposity.deleteById(correo);
+                responseMap.put("estado", "Borrado exitoso");
+                return new ResponseEntity(responseMap, HttpStatus.OK);
+            }else{
+                responseMap.put("msg", "no se encontro el usuario con correo: "+correo);
+                responseMap.put("estado", "error");
+                return new ResponseEntity(responseMap, HttpStatus.OK);
+            }
+        }else{
+            responseMap.put("msg", "Debe ingresar un correo");
+            responseMap.put("estado", "error");
+            return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity capturarExcepcion(HttpServletRequest httpServletRequest){
