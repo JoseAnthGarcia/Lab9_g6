@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -146,6 +148,17 @@ public class AreaController {
             responseMap.put("msg", "El ID debe ser un número");
             return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity capturarExcepcion(HttpServletRequest httpServletRequest){
+
+        HashMap<String, String> responseMap = new HashMap<>();
+        if(httpServletRequest.getMethod().equals("POST") || httpServletRequest.getMethod().equals("PUT")){
+            responseMap.put("msg", "Debe enviar un usuario");
+            responseMap.put("estado", "error");
+        }
+        return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
     }
 
 
