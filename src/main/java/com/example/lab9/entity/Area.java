@@ -9,7 +9,7 @@ public class Area {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idarea")
     private int idarea;
-
+    @Column(name="nombreArea")
     private String nombreArea;
 
     public int getIdarea() {
