@@ -155,7 +155,7 @@ public class AreaController {
 
         HashMap<String, String> responseMap = new HashMap<>();
         if(httpServletRequest.getMethod().equals("POST") || httpServletRequest.getMethod().equals("PUT")){
-            responseMap.put("msg", "Debe enviar un usuario");
+            responseMap.put("msg", "Debe enviar un area");
             responseMap.put("estado", "error");
         }
         return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
