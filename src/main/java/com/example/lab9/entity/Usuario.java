@@ -1,9 +1,17 @@
 package com.example.lab9.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 @Entity
+@Table(name = "usuarios")
 public class Usuario {
 
+    @Id
     private String correo;
+    @Column(nullable = false)
     private int idarea;
     private String nombres;
     private String apellidos;

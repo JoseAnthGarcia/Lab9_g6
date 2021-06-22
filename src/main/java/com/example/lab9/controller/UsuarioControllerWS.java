@@ -3,6 +3,7 @@ package com.example.lab9.controller;
 import com.example.lab9.entity.Usuario;
 import com.example.lab9.repository.UsuarioReposity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,6 @@ public class UsuarioControllerWS {
     @GetMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity obtenerUsuarios(){
         List<Usuario> listaUsuarios = usuarioReposity.findAll();
-        return new ResponseEntity(listaUsuarios, )
+        return new ResponseEntity(listaUsuarios, HttpStatus.OK);
     }
 }
