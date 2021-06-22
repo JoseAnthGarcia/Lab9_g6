@@ -13,4 +13,7 @@ public class ActividadControllerWS {
     public ResponseEntity listaActividades(){
         return new ResponseEntity("hola", HttpStatus.OK);
     }
+
+
+
 }
