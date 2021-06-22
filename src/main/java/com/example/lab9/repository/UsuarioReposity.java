@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Repository
-public interface UsuarioReposity extends JpaRepository<Usuario, Integer> {
+public interface UsuarioReposity extends JpaRepository<Usuario, String> {
 
     @Query(value = "SELECT * FROM usuarios where idarea= ?1",nativeQuery = true)
     List<Usuario> usuariosPorArea(int idArea);

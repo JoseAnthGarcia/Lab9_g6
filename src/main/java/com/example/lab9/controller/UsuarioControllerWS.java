@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UsuarioControllerWS {
@@ -37,12 +38,13 @@ public class UsuarioControllerWS {
         }
         return new ResponseEntity(responseMap, HttpStatus.OK);
     }
+    
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity capturarExcepcion(HttpServletRequest httpServletRequest){
-        
+
         HashMap<String, String> responseMap = new HashMap<>();
-        if(httpServletRequest.getMethod().equals("post")){
+        if(httpServletRequest.getMethod().equals("POST") || httpServletRequest.getMethod().equals("PUT")){
             responseMap.put("msg", "Debe enviar un usuario");
             responseMap.put("estado", "error");
         }
